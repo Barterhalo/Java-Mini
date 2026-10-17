@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Incident Details | CampusShield</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-shell" id="appShell">
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon"><i class="fa-solid fa-building-shield"></i></div>
+      <span class="brand-name">CampusShield</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Main</div>
+      <a href="admin-dashboard.html" class="nav-item">
+        <i class="fa-solid fa-gauge-high"></i>
+        <span class="nav-label">Dashboard</span>
+      </a>
+      <a href="manage-incidents.html" class="nav-item active">
+        <i class="fa-solid fa-list-check"></i>
+        <span class="nav-label">Manage Incidents</span>
+        <span class="nav-badge" id="openIncidentsBadge">0</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fa-solid fa-user-tag"></i>
+        <span class="nav-label">Assignments</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fa-solid fa-users"></i>
+        <span class="nav-label">Users</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fa-solid fa-chart-column"></i>
+        <span class="nav-label">Reports</span>
+      </a>
+
+      <div class="nav-section-title">Session</div>
+      <a href="#" class="nav-item" id="logoutLink">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span class="nav-label">Logout</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-avatar">AD</div>
+      <div class="user-meta">
+        <div class="user-name">Admin User</div>
+        <div class="user-role">Super Admin</div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="mobile-nav-overlay" id="mobileOverlay"></div>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <header class="navbar">
+    <div class="navbar-left">
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div>
+        <h2 style="font-size:16px;">Incident Details</h2>
+        <p class="text-muted" style="font-size:12.5px;">Full record, reporter contact, and case controls.</p>
+      </div>
+    </div>
+
+    <div class="navbar-right">
+      <button class="navbar-icon-btn" id="notificationBtn" aria-label="Notifications">
+        <i class="fa-solid fa-bell"></i>
+        <span class="dot" id="notificationDot"></span>
+      </button>
+
+      <div class="navbar-profile">
+        <div class="avatar-fallback">AD</div>
+        <div class="user-meta" style="display:flex; flex-direction:column; line-height:1.2;">
+          <span style="font-size:13px; font-weight:600;">Admin User</span>
+          <span style="font-size:11px; color:var(--color-text-muted);">Administrator</span>
+        </div>
+        <i class="fa-solid fa-chevron-down" style="font-size:11px; color:var(--color-text-muted);"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== MAIN CONTENT ===================== -->
+  <main class="main-content">
+
+    <div class="page-header fade-in">
+      <div>
+        <a href="manage-incidents.html" style="font-size:12.5px; font-weight:600; color:var(--color-primary); display:inline-flex; align-items:center; gap:6px; margin-bottom:var(--space-2);">
+          <i class="fa-solid fa-arrow-left"></i> Back to Manage Incidents
+        </a>
+        <h1 id="detailTitle">Incident Title</h1>
+        <div class="detail-header-meta">
+          <span class="detail-id-tag" id="detailIdTag">INC-0000</span>
+          <span class="badge" id="detailPriorityBadge">Priority</span>
+          <span class="badge" id="detailStatusBadge">Status</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dashboard-grid fade-in">
+
+      <!-- ===================== LEFT COLUMN ===================== -->
+      <div class="flex flex-col gap-4">
+
+        <!-- Overview -->
+        <section class="card">
+          <div class="card-header">
+            <h3><i class="fa-solid fa-file-lines" style="color:var(--color-primary); margin-right:8px;"></i>Incident Overview</h3>
+          </div>
+          <div class="card-body" style="display:flex; flex-direction:column; gap:var(--space-5);">
+            <div>
+              <div class="form-hint" style="margin-bottom:4px;">Description</div>
+              <p style="font-size:13.5px; color:var(--color-text-secondary); line-height:1.7;" id="detailDescription">—</p>
+            </div>
+
+            <div class="info-grid">
+              <div class="info-item">
+                <div class="form-hint">Category</div>
+                <div class="info-value" id="detailCategory">—</div>
+              </div>
+              <div class="info-item">
+                <div class="form-hint">Location</div>
+                <div class="info-value" id="detailLocation">—</div>
+              </div>
+              <div class="info-item">
+                <div class="form-hint">Department</div>
+                <div class="info-value" id="detailDepartment">—</div>
+              </div>
+              <div class="info-item">
+                <div class="form-hint">Date</div>
+                <div class="info-value" id="detailDate">—</div>
+              </div>
+              <div class="info-item">
+                <div class="form-hint">Time</div>
+                <div class="info-value" id="detailTime">—</div>
+              </div>
+              <div class="info-item">
+                <div class="form-hint">Assigned To</div>
+                <div class="info-value" id="detailAssignedTo">—</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Uploaded image -->
+        <section class="card">
+          <div class="card-header">
+            <h3><i class="fa-solid fa-image" style="color:var(--color-primary); margin-right:8px;"></i>Uploaded Image</h3>
+          </div>
+          <div class="card-body">
+            <div class="evidence-image" id="evidenceImageWrap">
+              <!-- Injected by script.js -->
+            </div>
+          </div>
+        </section>
+
+        <!-- Workflow timeline -->
+        <section class="card">
+          <div class="card-header">
+            <h3><i class="fa-solid fa-timeline" style="color:var(--color-primary); margin-right:8px;"></i>Workflow Timeline</h3>
+          </div>
+          <div class="card-body">
+            <div class="workflow-timeline" id="workflowTimeline">
+              <!-- Steps injected by script.js -->
+            </div>
+          </div>
+        </section>
+
+        <!-- Comments -->
+        <section class="card">
+          <div class="card-header">
+            <h3><i class="fa-solid fa-comments" style="color:var(--color-primary); margin-right:8px;"></i>Comments</h3>
+          </div>
+          <div class="card-body">
+            <div class="comment-list" id="commentList">
+              <!-- Comments injected by script.js -->
+            </div>
+
+            <div class="comment-form">
+              <textarea class="form-control" id="newCommentInput" rows="3" placeholder="Add an internal note or update for this case..."></textarea>
+              <button class="btn btn-primary" id="postCommentBtn" style="align-self:flex-end;">
+                <i class="fa-solid fa-paper-plane"></i> Post Comment
+              </button>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- ===================== RIGHT COLUMN ===================== -->
+      <aside class="flex flex-col gap-4">
+
+        <!-- Reporter details -->
+        <section class="card">
+          <div class="card-header">
+            <h3><i class="fa-solid fa-user" style="color:var(--color-primary); margin-right:8px;"></i>Reporter Details</h3>
+          </div>
+          <div class="card-body">
+            <div class="reporter-card">
+              <div class="reporter-avatar" id="reporterAvatar">—</div>
+              <div class="reporter-meta">
+                <strong id="reporterName">—</strong>
+                <span id="reporterRole">—</span>
+              </div>
+            </div>
+            <div class="reporter-contact">
+              <div class="reporter-contact-row"><i class="fa-solid fa-id-card"></i><span id="reporterId">—</span></div>
+              <div class="reporter-contact-row"><i class="fa-solid fa-envelope"></i><span id="reporterEmail">—</span></div>
+              <div class="reporter-contact-row"><i class="fa-solid fa-phone"></i><span id="reporterPhone">—</span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Admin controls -->
+        <section class="card admin-controls-card">
+          <div class="card-header">
+            <h3><i class="fa-solid fa-sliders" style="color:var(--color-primary); margin-right:8px;"></i>Admin Controls</h3>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label class="form-label" for="controlDepartment">Assign Department</label>
+              <select id="controlDepartment" class="form-control">
+                <option value="Campus Security">Campus Security</option>
+                <option value="Facilities & Maintenance">Facilities &amp; Maintenance</option>
+                <option value="IT Support">IT Support</option>
+                <option value="Health Center">Health Center</option>
+                <option value="Student Affairs">Student Affairs</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="controlPriority">Update Priority</label>
+              <select id="controlPriority" class="form-control">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+                <option value="Critical">Critical</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="controlStatus">Update Status</label>
+              <select id="controlStatus" class="form-control">
+                <option value="Reported">Reported</option>
+                <option value="Assigned">Assigned</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Resolved">Resolved</option>
+              </select>
+            </div>
+
+            <button class="btn btn-primary btn-block" id="saveControlsBtn">
+              <i class="fa-solid fa-check"></i> Save Changes
+            </button>
+          </div>
+        </section>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+  <!-- ===================== MOBILE BOTTOM NAV ===================== -->
+  <nav class="bottom-nav">
+    <a href="admin-dashboard.html" class="bottom-nav-item">
+      <i class="fa-solid fa-gauge-high"></i> Dashboard
+    </a>
+    <a href="manage-incidents.html" class="bottom-nav-item active">
+      <i class="fa-solid fa-list-check"></i> Incidents
+    </a>
+    <a href="#" class="bottom-nav-item">
+      <i class="fa-solid fa-users"></i> Users
+    </a>
+    <a href="#" class="bottom-nav-item">
+      <i class="fa-solid fa-chart-column"></i> Reports
+    </a>
+  </nav>
+
+</div>
+
+<div class="toast-stack" id="toastStack"></div>
+
+<script src="script.js"></script>
+</body>
+</html>

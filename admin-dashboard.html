@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard | CampusShield</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-shell" id="appShell">
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon"><i class="fa-solid fa-building-shield"></i></div>
+      <span class="brand-name">CampusShield</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Main</div>
+      <a href="admin-dashboard.html" class="nav-item active">
+        <i class="fa-solid fa-gauge-high"></i>
+        <span class="nav-label">Dashboard</span>
+      </a>
+      <a href="manage-incidents.html" class="nav-item">
+        <i class="fa-solid fa-list-check"></i>
+        <span class="nav-label">Manage Incidents</span>
+        <span class="nav-badge" id="openIncidentsBadge">0</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fa-solid fa-user-tag"></i>
+        <span class="nav-label">Assignments</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fa-solid fa-users"></i>
+        <span class="nav-label">Users</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fa-solid fa-chart-column"></i>
+        <span class="nav-label">Reports</span>
+      </a>
+
+      <div class="nav-section-title">Session</div>
+      <a href="#" class="nav-item" id="logoutLink">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span class="nav-label">Logout</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-avatar">AD</div>
+      <div class="user-meta">
+        <div class="user-name">Admin User</div>
+        <div class="user-role">Super Admin</div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="mobile-nav-overlay" id="mobileOverlay"></div>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <header class="navbar">
+    <div class="navbar-left">
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div>
+        <h2 style="font-size:16px;">Admin Dashboard</h2>
+        <p class="text-muted" style="font-size:12.5px;">Monitor and manage every incident across campus.</p>
+      </div>
+    </div>
+
+    <div class="navbar-right">
+      <button class="navbar-icon-btn" id="notificationBtn" aria-label="Notifications">
+        <i class="fa-solid fa-bell"></i>
+        <span class="dot" id="notificationDot"></span>
+      </button>
+
+      <div class="navbar-profile">
+        <div class="avatar-fallback">AD</div>
+        <div class="user-meta" style="display:flex; flex-direction:column; line-height:1.2;">
+          <span style="font-size:13px; font-weight:600;">Admin User</span>
+          <span style="font-size:11px; color:var(--color-text-muted);">Administrator</span>
+        </div>
+        <i class="fa-solid fa-chevron-down" style="font-size:11px; color:var(--color-text-muted);"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== MAIN CONTENT ===================== -->
+  <main class="main-content">
+
+    <div class="page-header fade-in">
+      <div>
+        <h1>Overview</h1>
+        <p>Campus‑wide incident activity at a glance.</p>
+      </div>
+      <div class="flex gap-3" style="flex-wrap:wrap;">
+        <select id="rangeFilter" class="form-control" style="min-width:150px;">
+          <option value="7">Last 7 days</option>
+          <option value="30" selected>Last 30 days</option>
+          <option value="90">Last 90 days</option>
+        </select>
+        <button class="btn btn-primary" id="generateReportBtn">
+          <i class="fa-solid fa-file-export"></i> Generate Report
+        </button>
+      </div>
+    </div>
+
+    <!-- ===================== STAT CARDS ===================== -->
+    <section class="stats-grid-6 fade-in" id="statsGrid">
+      <div class="stat-card primary">
+        <div class="stat-icon"><i class="fa-solid fa-folder-open"></i></div>
+        <div class="stat-value" id="statTotal">0</div>
+        <div class="stat-label">Total Incidents</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="background:var(--color-border); color:var(--color-text-secondary);"><i class="fa-solid fa-flag"></i></div>
+        <div class="stat-value" id="statReported">0</div>
+        <div class="stat-label">Reported</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="background:var(--color-primary-light); color:var(--color-primary);"><i class="fa-solid fa-user-tag"></i></div>
+        <div class="stat-value" id="statAssigned">0</div>
+        <div class="stat-label">Assigned</div>
+      </div>
+
+      <div class="stat-card warning">
+        <div class="stat-icon"><i class="fa-solid fa-hourglass-half"></i></div>
+        <div class="stat-value" id="statInProgress">0</div>
+        <div class="stat-label">In Progress</div>
+      </div>
+
+      <div class="stat-card success">
+        <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <div class="stat-value" id="statResolved">0</div>
+        <div class="stat-label">Resolved</div>
+      </div>
+
+      <div class="stat-card critical">
+        <div class="stat-icon pulse"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        <div class="stat-value" id="statCritical">0</div>
+        <div class="stat-label">Critical</div>
+      </div>
+    </section>
+
+    <!-- ===================== CHARTS ===================== -->
+    <section class="charts-row fade-in">
+
+      <div class="card chart-card">
+        <div class="card-header">
+          <h3><i class="fa-solid fa-chart-simple" style="color:var(--color-primary); margin-right:8px;"></i>Incidents by Category</h3>
+          <span class="text-muted" style="font-size:12px;">Last 30 days</span>
+        </div>
+        <div class="card-body">
+          <div class="bar-chart" id="barChart">
+            <!-- Bars injected by script.js -->
+          </div>
+        </div>
+      </div>
+
+      <div class="card chart-card">
+        <div class="card-header">
+          <h3><i class="fa-solid fa-chart-pie" style="color:var(--color-primary); margin-right:8px;"></i>Status Breakdown</h3>
+        </div>
+        <div class="card-body">
+          <div class="donut-wrap">
+            <div class="donut" id="statusDonut">
+              <div class="donut-center">
+                <strong id="donutTotal">0</strong>
+                <span>Total</span>
+              </div>
+            </div>
+            <div class="chart-legend" id="donutLegend">
+              <!-- Legend injected by script.js -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ===================== ACTIVITY + TABLE ===================== -->
+    <div class="dashboard-grid fade-in">
+
+      <!-- Latest incidents table -->
+      <section class="table-wrapper">
+        <div class="table-toolbar">
+          <h3 style="font-size:16px; font-weight:600;">Latest Incidents</h3>
+          <a href="manage-incidents.html" style="font-size:12.5px; font-weight:600; color:var(--color-primary);">View all <i class="fa-solid fa-arrow-right" style="font-size:10px;"></i></a>
+        </div>
+
+        <div class="table-scroll">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Incident ID</th>
+                <th>Title</th>
+                <th>Reported By</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="adminIncidentsTableBody">
+              <!-- Rows injected by script.js -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pagination">
+          <span id="adminTableSummary">Showing 0 of 0 incidents</span>
+        </div>
+      </section>
+
+      <!-- Recent activity -->
+      <aside class="card">
+        <div class="card-header">
+          <h3><i class="fa-solid fa-clock-rotate-left" style="color:var(--color-primary); margin-right:8px;"></i>Recent Activity</h3>
+        </div>
+        <div class="activity-feed" id="activityFeed">
+          <!-- Activity items injected by script.js -->
+        </div>
+      </aside>
+
+    </div>
+
+  </main>
+
+  <!-- ===================== MOBILE BOTTOM NAV ===================== -->
+  <nav class="bottom-nav">
+    <a href="admin-dashboard.html" class="bottom-nav-item active">
+      <i class="fa-solid fa-gauge-high"></i> Dashboard
+    </a>
+    <a href="manage-incidents.html" class="bottom-nav-item">
+      <i class="fa-solid fa-list-check"></i> Incidents
+    </a>
+    <a href="#" class="bottom-nav-item">
+      <i class="fa-solid fa-users"></i> Users
+    </a>
+    <a href="#" class="bottom-nav-item">
+      <i class="fa-solid fa-chart-column"></i> Reports
+    </a>
+  </nav>
+
+</div>
+
+<div class="toast-stack" id="toastStack"></div>
+
+<script src="script.js"></script>
+</body>
+</html>

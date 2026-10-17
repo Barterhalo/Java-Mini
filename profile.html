@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Profile | CampusShield</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-shell" id="appShell">
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon"><i class="fa-solid fa-building-shield"></i></div>
+      <span class="brand-name">CampusShield</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Main</div>
+      <a href="student-dashboard.html" class="nav-item">
+        <i class="fa-solid fa-gauge-high"></i>
+        <span class="nav-label">Dashboard</span>
+      </a>
+      <a href="report-incident.html" class="nav-item" id="reportIncidentLink">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span class="nav-label">Report Incident</span>
+      </a>
+      <a href="my-incidents.html" class="nav-item">
+        <i class="fa-solid fa-list-check"></i>
+        <span class="nav-label">My Incidents</span>
+      </a>
+      <a href="profile.html" class="nav-item active">
+        <i class="fa-solid fa-user"></i>
+        <span class="nav-label">Profile</span>
+      </a>
+
+      <div class="nav-section-title">Session</div>
+      <a href="#" class="nav-item" id="logoutLink">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span class="nav-label">Logout</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-avatar" id="sidebarUserAvatar">RS</div>
+      <div class="user-meta">
+        <div class="user-name" id="sidebarUserName">Riya Sharma</div>
+        <div class="user-role" id="sidebarUserRole">Student · CSE</div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="mobile-nav-overlay" id="mobileOverlay"></div>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <header class="navbar">
+    <div class="navbar-left">
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div>
+        <h2 style="font-size:16px;">My Profile</h2>
+        <p class="text-muted" style="font-size:12.5px;">Manage your personal information and security settings.</p>
+      </div>
+    </div>
+
+    <div class="navbar-right">
+      <button class="navbar-icon-btn" id="notificationBtn" aria-label="Notifications">
+        <i class="fa-solid fa-bell"></i>
+        <span class="dot" id="notificationDot"></span>
+      </button>
+
+      <div class="navbar-profile">
+        <div class="avatar-fallback" id="navbarUserAvatar">RS</div>
+        <div class="user-meta" style="display:flex; flex-direction:column; line-height:1.2;">
+          <span style="font-size:13px; font-weight:600;" id="navbarUserName">Riya Sharma</span>
+          <span style="font-size:11px; color:var(--color-text-muted);">Student</span>
+        </div>
+        <i class="fa-solid fa-chevron-down" style="font-size:11px; color:var(--color-text-muted);"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== MAIN CONTENT ===================== -->
+  <main class="main-content">
+
+    <div class="page-header fade-in">
+      <div>
+        <h1>My Profile</h1>
+        <p>View and update your account details.</p>
+      </div>
+    </div>
+
+    <div class="profile-grid fade-in">
+
+      <!-- ===================== PHOTO / SUMMARY CARD ===================== -->
+      <section class="card profile-photo-card">
+        <div class="card-body">
+          <div class="profile-photo-wrap">
+            <div class="profile-photo-circle" id="profilePhotoCircle">
+              <span id="profilePhotoInitials">RS</span>
+              <img id="profilePhotoImg" alt="Profile photo">
+            </div>
+            <label class="profile-photo-camera-btn" title="Change photo" aria-label="Change photo">
+              <i class="fa-solid fa-camera"></i>
+              <input type="file" id="profilePhotoInput" accept="image/*">
+            </label>
+          </div>
+
+          <h3 id="profileDisplayName">Riya Sharma</h3>
+          <div class="profile-role" id="profileDisplayRole">Student · Computer Science &amp; Engineering</div>
+          <button type="button" class="profile-remove-btn" id="removePhotoBtn" style="display:none;">
+            <i class="fa-solid fa-trash-can"></i> Remove photo
+          </button>
+
+          <div class="profile-quick-stats">
+            <div class="stat-row">
+              <span>Student ID</span>
+              <span>CSE2024031</span>
+            </div>
+            <div class="stat-row">
+              <span>Member Since</span>
+              <span>Aug 2024</span>
+            </div>
+            <div class="stat-row">
+              <span>Incidents Reported</span>
+              <span>15</span>
+            </div>
+            <div class="stat-row">
+              <span>Account Status</span>
+              <span style="color:var(--color-success);"><i class="fa-solid fa-circle-check"></i> Active</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== RIGHT COLUMN ===================== -->
+      <div class="flex flex-col gap-4">
+
+        <!-- Personal Information -->
+        <section class="card">
+          <div class="card-header">
+            <h3><i class="fa-solid fa-id-badge" style="color:var(--color-primary); margin-right:8px;"></i>Personal Information</h3>
+          </div>
+          <div class="card-body">
+            <form id="personalInfoForm" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="profileName">Full Name <span class="required">*</span></label>
+                  <input type="text" id="profileName" class="form-control" value="Riya Sharma">
+                  <div class="form-error"><i class="fa-solid fa-circle-exclamation"></i><span>Please enter your full name (at least 3 characters).</span></div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="profileEmail">Email <span class="required">*</span></label>
+                  <input type="email" id="profileEmail" class="form-control" value="riya.sharma@college.edu">
+                  <div class="form-error"><i class="fa-solid fa-circle-exclamation"></i><span>Please enter a valid email address.</span></div>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="profilePhone">Phone <span class="required">*</span></label>
+                  <input type="tel" id="profilePhone" class="form-control" value="+91 91234 56780">
+                  <div class="form-error"><i class="fa-solid fa-circle-exclamation"></i><span>Please enter a valid phone number.</span></div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="profileDepartment">Department <span class="required">*</span></label>
+                  <select id="profileDepartment" class="form-control">
+                    <option value="Computer Science & Engineering" selected>Computer Science &amp; Engineering</option>
+                    <option value="Electronics & Communication">Electronics &amp; Communication</option>
+                    <option value="Mechanical Engineering">Mechanical Engineering</option>
+                    <option value="Civil Engineering">Civil Engineering</option>
+                    <option value="Information Technology">Information Technology</option>
+                    <option value="Business Administration">Business Administration</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  <div class="form-error"><i class="fa-solid fa-circle-exclamation"></i><span>Please select a department.</span></div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <!-- Change Password -->
+        <section class="card">
+          <div class="card-header">
+            <h3><i class="fa-solid fa-lock" style="color:var(--color-primary); margin-right:8px;"></i>Change Password</h3>
+          </div>
+          <div class="card-body">
+            <form id="passwordForm" novalidate>
+              <div class="form-group">
+                <label class="form-label" for="currentPassword">Current Password</label>
+                <div class="password-input-wrap">
+                  <input type="password" id="currentPassword" class="form-control" placeholder="Enter current password">
+                  <button type="button" class="password-toggle-btn" data-target="currentPassword" aria-label="Show password"><i class="fa-solid fa-eye"></i></button>
+                </div>
+                <div class="form-error"><i class="fa-solid fa-circle-exclamation"></i><span>Enter your current password to change it.</span></div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="newPassword">New Password</label>
+                  <div class="password-input-wrap">
+                    <input type="password" id="newPassword" class="form-control" placeholder="Min. 8 characters">
+                    <button type="button" class="password-toggle-btn" data-target="newPassword" aria-label="Show password"><i class="fa-solid fa-eye"></i></button>
+                  </div>
+                  <div class="form-error"><i class="fa-solid fa-circle-exclamation"></i><span>New password must be at least 8 characters.</span></div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="confirmPassword">Confirm New Password</label>
+                  <div class="password-input-wrap">
+                    <input type="password" id="confirmPassword" class="form-control" placeholder="Re-enter new password">
+                    <button type="button" class="password-toggle-btn" data-target="confirmPassword" aria-label="Show password"><i class="fa-solid fa-eye"></i></button>
+                  </div>
+                  <div class="form-error"><i class="fa-solid fa-circle-exclamation"></i><span>Passwords do not match.</span></div>
+                </div>
+              </div>
+
+              <p class="form-hint"><i class="fa-solid fa-circle-info"></i> Leave the password fields blank if you don't want to change it.</p>
+            </form>
+          </div>
+        </section>
+
+        <!-- Actions -->
+        <div class="profile-actions-row">
+          <button type="button" class="btn btn-outline" id="cancelProfileBtn">
+            <i class="fa-solid fa-rotate-left"></i> Cancel
+          </button>
+          <button type="button" class="btn btn-primary" id="saveProfileBtn">
+            <i class="fa-solid fa-check"></i> Save Changes
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ===================== MOBILE BOTTOM NAV ===================== -->
+  <nav class="bottom-nav">
+    <a href="student-dashboard.html" class="bottom-nav-item">
+      <i class="fa-solid fa-gauge-high"></i> Dashboard
+    </a>
+    <a href="report-incident.html" class="bottom-nav-item">
+      <i class="fa-solid fa-triangle-exclamation"></i> Report
+    </a>
+    <a href="my-incidents.html" class="bottom-nav-item">
+      <i class="fa-solid fa-list-check"></i> Incidents
+    </a>
+    <a href="profile.html" class="bottom-nav-item active">
+      <i class="fa-solid fa-user"></i> Profile
+    </a>
+  </nav>
+
+</div>
+
+<div class="toast-stack" id="toastStack"></div>
+
+<script src="script.js"></script>
+</body>
+</html>

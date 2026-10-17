@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Incidents | CampusShield</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-shell" id="appShell">
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon"><i class="fa-solid fa-building-shield"></i></div>
+      <span class="brand-name">CampusShield</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Main</div>
+      <a href="student-dashboard.html" class="nav-item">
+        <i class="fa-solid fa-gauge-high"></i>
+        <span class="nav-label">Dashboard</span>
+      </a>
+      <a href="report-incident.html" class="nav-item" id="reportIncidentLink">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span class="nav-label">Report Incident</span>
+      </a>
+      <a href="my-incidents.html" class="nav-item active">
+        <i class="fa-solid fa-list-check"></i>
+        <span class="nav-label">My Incidents</span>
+      </a>
+      <a href="profile.html" class="nav-item">
+        <i class="fa-solid fa-user"></i>
+        <span class="nav-label">Profile</span>
+      </a>
+
+      <div class="nav-section-title">Session</div>
+      <a href="#" class="nav-item" id="logoutLink">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span class="nav-label">Logout</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-avatar">RS</div>
+      <div class="user-meta">
+        <div class="user-name">Riya Sharma</div>
+        <div class="user-role">Student · CSE</div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="mobile-nav-overlay" id="mobileOverlay"></div>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <header class="navbar">
+    <div class="navbar-left">
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div>
+        <h2 style="font-size:16px;">My Incidents</h2>
+        <p class="text-muted" style="font-size:12.5px;">All incidents you've reported, in one place.</p>
+      </div>
+    </div>
+
+    <div class="navbar-right">
+      <button class="navbar-icon-btn" id="notificationBtn" aria-label="Notifications">
+        <i class="fa-solid fa-bell"></i>
+        <span class="dot" id="notificationDot"></span>
+      </button>
+
+      <div class="navbar-profile">
+        <div class="avatar-fallback">RS</div>
+        <div class="user-meta" style="display:flex; flex-direction:column; line-height:1.2;">
+          <span style="font-size:13px; font-weight:600;">Riya Sharma</span>
+          <span style="font-size:11px; color:var(--color-text-muted);">Student</span>
+        </div>
+        <i class="fa-solid fa-chevron-down" style="font-size:11px; color:var(--color-text-muted);"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== MAIN CONTENT ===================== -->
+  <main class="main-content">
+
+    <div class="page-header fade-in">
+      <div>
+        <h1>My Incidents</h1>
+        <p>Search and filter through every incident you've submitted.</p>
+      </div>
+      <a href="report-incident.html" class="btn btn-primary">
+        <i class="fa-solid fa-plus"></i> Report Incident
+      </a>
+    </div>
+
+    <!-- ===================== TABLE CARD ===================== -->
+    <section class="table-wrapper fade-in">
+
+      <div class="table-toolbar">
+        <div class="search-box" style="max-width:320px;">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="myIncidentsSearch" placeholder="Search by ID, title, category, location...">
+        </div>
+
+        <div class="flex gap-3" style="flex-wrap:wrap;">
+          <select id="priorityFilter" class="form-control" style="min-width:160px;">
+            <option value="">All Priorities</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+            <option value="Critical">Critical</option>
+          </select>
+
+          <select id="statusFilter" class="form-control" style="min-width:160px;">
+            <option value="">All Statuses</option>
+            <option value="Reported">Reported</option>
+            <option value="Assigned">Assigned</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Resolved">Resolved</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Incident ID</th>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Location</th>
+              <th>Priority</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="myIncidentsTableBody">
+            <!-- Rows injected by script.js -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pagination">
+        <span id="myIncidentsSummary">Showing 0 of 0 incidents</span>
+        <div class="pagination-controls" id="paginationControls">
+          <!-- Page buttons injected by script.js -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== MOBILE BOTTOM NAV ===================== -->
+  <nav class="bottom-nav">
+    <a href="student-dashboard.html" class="bottom-nav-item">
+      <i class="fa-solid fa-gauge-high"></i> Dashboard
+    </a>
+    <a href="report-incident.html" class="bottom-nav-item">
+      <i class="fa-solid fa-triangle-exclamation"></i> Report
+    </a>
+    <a href="my-incidents.html" class="bottom-nav-item active">
+      <i class="fa-solid fa-list-check"></i> Incidents
+    </a>
+    <a href="profile.html" class="bottom-nav-item">
+      <i class="fa-solid fa-user"></i> Profile
+    </a>
+  </nav>
+
+</div>
+
+<!-- ===================== VIEW INCIDENT MODAL ===================== -->
+<div class="modal-overlay" id="viewIncidentModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Incident Details</h3>
+      <button class="modal-close" id="closeViewModal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div class="modal-body">
+      <div class="flex gap-3" style="margin-bottom:var(--space-5);">
+        <span class="badge" id="viewModalPriority">Priority</span>
+        <span class="badge" id="viewModalStatus">Status</span>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:var(--space-4);">
+        <div>
+          <div class="form-hint" style="margin-bottom:2px;">Incident ID</div>
+          <div style="font-weight:700; color:var(--color-primary);" id="viewModalId">—</div>
+        </div>
+        <div>
+          <div class="form-hint" style="margin-bottom:2px;">Title</div>
+          <div style="font-weight:600;" id="viewModalTitle">—</div>
+        </div>
+        <div class="form-row">
+          <div>
+            <div class="form-hint" style="margin-bottom:2px;">Category</div>
+            <div id="viewModalCategory">—</div>
+          </div>
+          <div>
+            <div class="form-hint" style="margin-bottom:2px;">Date</div>
+            <div id="viewModalDate">—</div>
+          </div>
+        </div>
+        <div>
+          <div class="form-hint" style="margin-bottom:2px;">Location</div>
+          <div id="viewModalLocation">—</div>
+        </div>
+        <div>
+          <div class="form-hint" style="margin-bottom:2px;">Description</div>
+          <div style="font-size:13.5px; color:var(--color-text-secondary); line-height:1.6;" id="viewModalDescription">—</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-outline" id="viewModalCloseFooterBtn">Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-stack" id="toastStack"></div>
+
+<script src="script.js"></script>
+</body>
+</html>

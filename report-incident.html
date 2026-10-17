@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Report Incident | CampusShield</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-shell" id="appShell">
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon"><i class="fa-solid fa-building-shield"></i></div>
+      <span class="brand-name">CampusShield</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Main</div>
+      <a href="student-dashboard.html" class="nav-item">
+        <i class="fa-solid fa-gauge-high"></i>
+        <span class="nav-label">Dashboard</span>
+      </a>
+      <a href="report-incident.html" class="nav-item active" id="reportIncidentLink">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span class="nav-label">Report Incident</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fa-solid fa-list-check"></i>
+        <span class="nav-label">My Incidents</span>
+      </a>
+      <a href="profile.html" class="nav-item">
+        <i class="fa-solid fa-user"></i>
+        <span class="nav-label">Profile</span>
+      </a>
+
+      <div class="nav-section-title">Session</div>
+      <a href="#" class="nav-item" id="logoutLink">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span class="nav-label">Logout</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-avatar">RS</div>
+      <div class="user-meta">
+        <div class="user-name">Riya Sharma</div>
+        <div class="user-role">Student · CSE</div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="mobile-nav-overlay" id="mobileOverlay"></div>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <header class="navbar">
+    <div class="navbar-left">
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div>
+        <h2 style="font-size:16px;">Report an Incident</h2>
+        <p class="text-muted" style="font-size:12.5px;">Give us the details so campus security can respond quickly.</p>
+      </div>
+    </div>
+
+    <div class="navbar-right">
+      <button class="navbar-icon-btn" id="notificationBtn" aria-label="Notifications">
+        <i class="fa-solid fa-bell"></i>
+        <span class="dot" id="notificationDot"></span>
+      </button>
+
+      <div class="navbar-profile">
+        <div class="avatar-fallback">RS</div>
+        <div class="user-meta" style="display:flex; flex-direction:column; line-height:1.2;">
+          <span style="font-size:13px; font-weight:600;">Riya Sharma</span>
+          <span style="font-size:11px; color:var(--color-text-muted);">Student</span>
+        </div>
+        <i class="fa-solid fa-chevron-down" style="font-size:11px; color:var(--color-text-muted);"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== MAIN CONTENT ===================== -->
+  <main class="main-content">
+
+    <div class="page-header fade-in">
+      <div>
+        <h1>New Incident Report</h1>
+        <p>Fields marked <span style="color:var(--color-danger); font-weight:600;">*</span> are required.</p>
+      </div>
+      <a href="student-dashboard.html" class="btn btn-outline">
+        <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+      </a>
+    </div>
+
+    <div class="dashboard-grid fade-in">
+
+      <!-- ===================== FORM CARD ===================== -->
+      <section class="card">
+        <div class="card-header">
+          <h3><i class="fa-solid fa-file-pen" style="color:var(--color-primary); margin-right:8px;"></i>Incident Details</h3>
+        </div>
+
+        <div class="card-body">
+          <form id="incidentForm" novalidate>
+
+            <!-- Title -->
+            <div class="form-group">
+              <label class="form-label" for="incidentTitle">Incident Title <span class="required">*</span></label>
+              <input type="text" id="incidentTitle" class="form-control" placeholder="e.g. Broken streetlight near Block C" maxlength="100">
+              <div class="form-error"><i class="fa-solid fa-circle-exclamation"></i><span>Title must be at least 5 characters.</span></div>
+            </div>
+
+            <div class="form-row">
+              <!-- Category -->
+              <div class="form-group">
+                <label class="form-label" for="incidentCategory">Category <span class="required">*</span></label>
+                <select id="incidentCategory" class="form-control">
+                  <option value="">Select a category</option>
+                  <option value="Safety & Security">Safety &amp; Security</option>
+                  <option value="Harassment">Harassment</option>
+                  <option value="Theft">Theft</option>
+                  <option value="Infrastructure">Infrastructure</option>
+                  <option value="Fire & Electrical">Fire &amp; Electrical</option>
+                  <option value="Health & Medical">Health &amp; Medical</option>
+                  <option value="Other">Other</option>
+                </select>
+                <div class="form-error"><i class="fa-solid fa-circle-exclamation"></i><span>Please select a category.</span></div>
+              </div>
+
+              <!-- Priority -->
+              <div class="form-group">
+                <label class="form-label" for="incidentPriority">Priority <span class="required">*</span></label>
+                <select id="incidentPriority" class="form-control">
+                  <option value="">Select priority level</option>
+                  <option value="Low">Low</option>
+                  <option value="Medium">Medium</option>
+                  <option value="High">High</option>
+                  <option value="Critical">Critical</option>
+                </select>
+                <div class="form-error"><i class="fa-solid fa-circle-exclamation"></i><span>Please select a priority level.</span></div>
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
+              <label class="form-label" for="incidentDescription">Description <span class="required">*</span></label>
+              <textarea id="incidentDescription" class="form-control" rows="4" placeholder="Describe what happened, who was involved, and any other relevant details..." maxlength="600"></textarea>
+              <div class="form-hint">Minimum 15 characters.</div>
+              <div class="form-error"><i class="fa-solid fa-circle-exclamation"></i><span>Description must be at least 15 characters.</span></div>
+            </div>
+
+            <!-- Location -->
+            <div class="form-group">
+              <label class="form-label" for="incidentLocation">Location <span class="required">*</span></label>
+              <input type="text" id="incidentLocation" class="form-control" placeholder="e.g. Hostel Block B, 2nd Floor">
+              <div class="form-error"><i class="fa-solid fa-circle-exclamation"></i><span>Please enter a valid location.</span></div>
+            </div>
+
+            <div class="form-row">
+              <!-- Date -->
+              <div class="form-group">
+                <label class="form-label" for="incidentDate">Date <span class="required">*</span></label>
+                <input type="date" id="incidentDate" class="form-control">
+                <div class="form-error"><i class="fa-solid fa-circle-exclamation"></i><span>Please select a date.</span></div>
+              </div>
+
+              <!-- Time -->
+              <div class="form-group">
+                <label class="form-label" for="incidentTime">Time <span class="required">*</span></label>
+                <input type="time" id="incidentTime" class="form-control">
+                <div class="form-error"><i class="fa-solid fa-circle-exclamation"></i><span>Please select a time.</span></div>
+              </div>
+            </div>
+
+            <!-- Image Upload -->
+            <div class="form-group">
+              <label class="form-label" for="incidentImage">Upload Image <span class="text-muted" style="font-weight:400;">(optional)</span></label>
+              <div class="upload-box" id="imagePreviewWrap">
+                <input type="file" id="incidentImage" accept="image/*">
+                <div class="upload-placeholder" id="imagePlaceholder">
+                  <i class="fa-solid fa-cloud-arrow-up"></i>
+                  <span>Click or drag an image to upload</span>
+                  <small>PNG, JPG up to 5MB</small>
+                </div>
+                <img id="imagePreview" class="upload-preview" alt="Incident preview">
+                <button type="button" class="remove-image-btn" id="removeImageBtn" aria-label="Remove image">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex gap-3" style="margin-top:var(--space-6); flex-wrap:wrap;">
+              <button type="submit" class="btn btn-primary btn-lg" id="submitIncidentBtn">
+                <i class="fa-solid fa-paper-plane"></i> Submit Report
+              </button>
+              <button type="reset" class="btn btn-outline btn-lg" id="resetFormBtn">
+                <i class="fa-solid fa-rotate-left"></i> Reset
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ===================== SIDE INFO CARD ===================== -->
+      <aside class="flex flex-col gap-4">
+        <div class="card">
+          <div class="card-body">
+            <h3 style="font-size:15px; margin-bottom:var(--space-3);">
+              <i class="fa-solid fa-circle-info" style="color:var(--color-primary); margin-right:6px;"></i>
+              Reporting Tips
+            </h3>
+            <ul style="display:flex; flex-direction:column; gap:var(--space-3); font-size:13px; color:var(--color-text-secondary);">
+              <li>Be specific about the exact location — building, floor, and landmark.</li>
+              <li>Attach a photo when it's safe to do so; it helps responders act faster.</li>
+              <li>Set priority to <strong>Critical</strong> only for situations involving immediate danger.</li>
+              <li>You'll receive a tracking ID once your report is submitted.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <h3 style="font-size:15px; margin-bottom:var(--space-2);">
+              <i class="fa-solid fa-phone" style="color:var(--color-danger); margin-right:6px;"></i>
+              Emergency?
+            </h3>
+            <p style="font-size:13px; color:var(--color-text-secondary); margin-bottom:var(--space-4);">
+              For life-threatening emergencies, contact campus security directly instead of waiting for a report response.
+            </p>
+            <a href="tel:+911234567890" class="btn btn-danger btn-block">
+              <i class="fa-solid fa-phone-volume"></i> Call Campus Security
+            </a>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- ===================== MOBILE BOTTOM NAV ===================== -->
+  <nav class="bottom-nav">
+    <a href="student-dashboard.html" class="bottom-nav-item">
+      <i class="fa-solid fa-gauge-high"></i> Dashboard
+    </a>
+    <a href="report-incident.html" class="bottom-nav-item active">
+      <i class="fa-solid fa-triangle-exclamation"></i> Report
+    </a>
+    <a href="#" class="bottom-nav-item">
+      <i class="fa-solid fa-list-check"></i> Incidents
+    </a>
+    <a href="profile.html" class="bottom-nav-item">
+      <i class="fa-solid fa-user"></i> Profile
+    </a>
+  </nav>
+
+</div>
+
+<!-- ===================== SUCCESS POPUP MODAL ===================== -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal" style="max-width:420px; text-align:center;">
+    <div class="modal-body" style="padding-top:var(--space-8);">
+      <div style="width:64px; height:64px; border-radius:50%; background:var(--color-success-light); display:flex; align-items:center; justify-content:center; margin:0 auto var(--space-5);">
+        <i class="fa-solid fa-check" style="font-size:26px; color:var(--color-success);"></i>
+      </div>
+      <h3 style="font-size:19px; margin-bottom:var(--space-2);">Report Submitted Successfully</h3>
+      <p style="font-size:13.5px; color:var(--color-text-secondary); margin-bottom:var(--space-2);">
+        Your incident has been logged and assigned tracking ID:
+      </p>
+      <p style="font-size:18px; font-weight:700; color:var(--color-primary); margin-bottom:var(--space-6);" id="successIncidentId">INC-0000</p>
+      <button class="btn btn-primary btn-block" id="successModalOkBtn">
+        Go to Dashboard
+      </button>
+      <button class="btn btn-ghost btn-block" id="closeSuccessModal" style="margin-top:var(--space-2);">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-stack" id="toastStack"></div>
+
+<script src="script.js"></script>
+</body>
+</html>

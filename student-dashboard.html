@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Dashboard | CampusShield</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-shell" id="appShell">
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon"><i class="fa-solid fa-building-shield"></i></div>
+      <span class="brand-name">CampusShield</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Main</div>
+      <a href="student-dashboard.html" class="nav-item active">
+        <i class="fa-solid fa-gauge-high"></i>
+        <span class="nav-label">Dashboard</span>
+      </a>
+      <!-- CHANGED: was href="#" -->
+      <a href="report-incident.html" class="nav-item" id="reportIncidentLink">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span class="nav-label">Report Incident</span>
+      </a>
+      <!-- CHANGED: was href="#" -->
+      <a href="my-incidents.html" class="nav-item">
+        <i class="fa-solid fa-list-check"></i>
+        <span class="nav-label">My Incidents</span>
+      </a>
+      <a href="profile.html" class="nav-item">
+        <i class="fa-solid fa-user"></i>
+        <span class="nav-label">Profile</span>
+      </a>
+
+      <div class="nav-section-title">Session</div>
+      <a href="#" class="nav-item" id="logoutLink">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span class="nav-label">Logout</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-avatar">RS</div>
+      <div class="user-meta">
+        <div class="user-name">Riya Sharma</div>
+        <div class="user-role">Student · CSE</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===================== MOBILE OVERLAY ===================== -->
+  <div class="mobile-nav-overlay" id="mobileOverlay"></div>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <header class="navbar">
+    <div class="navbar-left">
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div>
+        <h2 style="font-size:16px;">Welcome, Student 👋</h2>
+        <p class="text-muted" style="font-size:12.5px;">Here's what's happening with your reports.</p>
+      </div>
+    </div>
+
+    <div class="navbar-right">
+      <button class="navbar-icon-btn" id="notificationBtn" aria-label="Notifications">
+        <i class="fa-solid fa-bell"></i>
+        <span class="dot" id="notificationDot"></span>
+      </button>
+
+      <div class="navbar-profile">
+        <div class="avatar-fallback">RS</div>
+        <div class="user-meta" style="display:flex; flex-direction:column; line-height:1.2;">
+          <span style="font-size:13px; font-weight:600;">Riya Sharma</span>
+          <span style="font-size:11px; color:var(--color-text-muted);">Student</span>
+        </div>
+        <i class="fa-solid fa-chevron-down" style="font-size:11px; color:var(--color-text-muted);"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== MAIN CONTENT ===================== -->
+  <main class="main-content">
+
+    <div class="page-header fade-in">
+      <div>
+        <h1>Dashboard</h1>
+        <p>Track and manage your submitted campus incident reports.</p>
+      </div>
+      <button class="btn btn-primary" id="newIncidentBtn">
+        <i class="fa-solid fa-plus"></i> Report Incident
+      </button>
+    </div>
+
+    <!-- ===================== STAT CARDS ===================== -->
+    <section class="stats-grid fade-in" id="statsGrid">
+      <div class="stat-card primary">
+        <div class="stat-icon"><i class="fa-solid fa-folder-open"></i></div>
+        <div class="stat-value" id="statTotal">0</div>
+        <div class="stat-label">Total Incidents</div>
+      </div>
+
+      <div class="stat-card danger">
+        <div class="stat-icon"><i class="fa-solid fa-flag"></i></div>
+        <div class="stat-value" id="statReported">0</div>
+        <div class="stat-label">Reported</div>
+      </div>
+
+      <div class="stat-card warning">
+        <div class="stat-icon"><i class="fa-solid fa-hourglass-half"></i></div>
+        <div class="stat-value" id="statInProgress">0</div>
+        <div class="stat-label">In Progress</div>
+      </div>
+
+      <div class="stat-card success">
+        <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <div class="stat-value" id="statResolved">0</div>
+        <div class="stat-label">Resolved</div>
+      </div>
+    </section>
+
+    <!-- ===================== RECENT INCIDENTS TABLE ===================== -->
+    <section class="table-wrapper fade-in">
+      <div class="table-toolbar">
+        <h3 style="font-size:16px; font-weight:600;">Recent Incidents</h3>
+
+        <div class="search-box" style="max-width:260px;">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="searchInput" placeholder="Search incidents...">
+        </div>
+      </div>
+
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Incident ID</th>
+              <th>Title</th>
+              <th>Location</th>
+              <th>Priority</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="incidentsTableBody">
+            <!-- Rows injected by script.js -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pagination">
+        <span id="tableSummary">Showing 0 of 0 incidents</span>
+        <div class="pagination-controls">
+          <button class="page-btn"><i class="fa-solid fa-chevron-left"></i></button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== MOBILE BOTTOM NAV ===================== -->
+  <nav class="bottom-nav">
+    <a href="student-dashboard.html" class="bottom-nav-item active">
+      <i class="fa-solid fa-gauge-high"></i> Dashboard
+    </a>
+    <!-- CHANGED: was href="#" -->
+    <a href="report-incident.html" class="bottom-nav-item">
+      <i class="fa-solid fa-triangle-exclamation"></i> Report
+    </a>
+    <!-- CHANGED: was href="#" -->
+    <a href="my-incidents.html" class="bottom-nav-item">
+      <i class="fa-solid fa-list-check"></i> Incidents
+    </a>
+    <a href="profile.html" class="bottom-nav-item">
+      <i class="fa-solid fa-user"></i> Profile
+    </a>
+  </nav>
+
+</div>
+
+<!-- ===================== TOAST STACK ===================== -->
+<div class="toast-stack" id="toastStack"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
