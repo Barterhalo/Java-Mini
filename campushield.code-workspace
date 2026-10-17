@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../Downloads/backend"
+		},
+		{
+			"path": "Java mini"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Java mini"
+	}
+}
